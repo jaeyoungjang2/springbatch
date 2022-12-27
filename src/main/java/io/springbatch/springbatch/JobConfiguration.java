@@ -2,6 +2,7 @@ package io.springbatch.springbatch;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -11,6 +12,8 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Map;
 
 @Configuration
 @RequiredArgsConstructor
@@ -31,7 +34,19 @@ public class JobConfiguration {
         return stepBuilderFactory.get("step1")
                 .tasklet(new Tasklet() {
                     @Override
-                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
+                    public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+
+                        // jobparameter를 확인하는 방법 1
+                        JobParameters jobParameters = contribution.getStepExecution().getJobExecution().getJobParameters();
+                        jobParameters.getString("name");
+                        jobParameters.getLong("seq");
+                        jobParameters.getDate("date");
+                        jobParameters.getDouble("age");
+
+                        // jobparameter를 확인하는 방법 2
+                        // 동일한 값을 얻을 수 있지만 값을 확인만 하는 용도로 사용
+                        Map<String, Object> jobParameters1 = chunkContext.getStepContext().getJobParameters();
+
                         System.out.println("step1 was executed");
                         return RepeatStatus.FINISHED;
                     }
