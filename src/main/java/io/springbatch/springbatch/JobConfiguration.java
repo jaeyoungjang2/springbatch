@@ -55,12 +55,7 @@ public class JobConfiguration {
 
     public Step step2() {
         return stepBuilderFactory.get("step2")
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-                        System.out.println("step2 was executed");
-                        return RepeatStatus.FINISHED;
-                    }
-                }).build();
+                .tasklet(new ChunkTasklet())
+                .build();
     }
 }
