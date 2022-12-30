@@ -57,6 +57,8 @@ public class JobConfiguration {
     private Step step2() {
         return stepBuilderFactory.get("step2")
                 .tasklet((stepContribution, chunkContext) -> {
+                    // tasklet에서 stepexecution을 참조할 경우에는 stepContribution에서 가져오면 된다.
+                    stepContribution.getStepExecution().getJobExecution().getJobInstance().getJobName();
                     System.out.println("step2 has executed");
                     throw new RuntimeException("step2 has failed");
 //                    return RepeatStatus.FINISHED;
