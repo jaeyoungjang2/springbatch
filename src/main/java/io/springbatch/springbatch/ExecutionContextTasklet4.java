@@ -6,13 +6,14 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.stereotype.Component;
 
-// bean으로 등록하려면 @Component annotation을 달어주면 된다.
-public class ChunkTasklet implements Tasklet {
+@Component
+public class ExecutionContextTasklet4 implements Tasklet {
+
     @Override
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-        // business logic 추가
-        System.out.println("step2 was executed");
-        // tasklet 반복하지 않고 종료
+        System.out.println("step4 was executed");
+
+        System.out.println("name: " + chunkContext.getStepContext().getStepExecution().getJobExecution().getExecutionContext().get("name"));
         return RepeatStatus.FINISHED;
     }
 }
