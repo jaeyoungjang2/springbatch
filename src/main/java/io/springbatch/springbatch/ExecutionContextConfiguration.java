@@ -22,7 +22,7 @@ public class ExecutionContextConfiguration {
 
     @Bean
     public Job testtest() {
-        return jobBuilderFactory.get("Job")
+        return jobBuilderFactory.get("batchJob1")
                 .start(step1())
                 .next(step2())
                 .listener(jobRepositoryListener)
