@@ -42,4 +42,4 @@ spring:
 #    job을 선별해서 실행하고자 할 때 names 설정 추가
 #    NONE은 임의의 문자를 의미한다. {job.name:NONE} 실행시점에 argument로 받겠다는 의미임
 #      names: batchJob2
-      names: ${job.name:NONE}
+#      names: ${job.name:NONE}
