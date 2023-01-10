@@ -21,79 +21,90 @@ import org.springframework.context.annotation.Configuration;
 public class ExecutionContextConfiguration {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
-    private final ExecutionContextTasklet1 executionContextTasklet1;
-    private final ExecutionContextTasklet2 executionContextTasklet2;
 
     private final JobExecutionListener jobRepositoryListener;
 
-    /*@Bean
+    @Bean
     public Job batchJob1() {
         return jobBuilderFactory.get("batchJob1")
                 .start(step1())
                 .next(step2())
+                .validator(new CustomJobParametersvalidator())
                 .listener(jobRepositoryListener)
                 .build();
-    }*/
-    @Bean
-    public Job batchJob2() {
-        return jobBuilderFactory.get("batchJob1")
-                .start(flow())
-                .next(step5())
-                .end()
-                .build();
     }
+//    @Bean
+//    public Job batchJob2() {
+//        return jobBuilderFactory.get("batchJob1")
+//                .start(flow())
+//                .next(step5())
+//                .end()
+//                .build();
+//    }
 
-    /*@Bean
+//    @Bean
+//    public Step step1() {
+//        return stepBuilderFactory.get("step1")
+//                .tasklet(executionContextTasklet1)
+//                .build();
+//    }
+    @Bean
     public Step step1() {
         return stepBuilderFactory.get("step1")
-                .tasklet(executionContextTasklet1)
+                .tasklet((stepContribution, chunkContext) -> {
+                    System.out.println("step1 was executed");
+                    return RepeatStatus.FINISHED;
+                })
                 .build();
     }
     @Bean
     public Step step2() {
         return stepBuilderFactory.get("step2")
-                .tasklet(executionContextTasklet2)
-                .build();
-    }*/
-
-    @Bean
-    public Flow flow() {
-        // step과 비슷한 level을 flow라고 봐도 무방할 것 같다.
-        FlowBuilder<Flow> flowBuilder = new FlowBuilder<>("flow");
-        // flow는 end를 구성해야한다.
-        flowBuilder.start(step3())
-                .next(step4())
-                .end();
-
-        return flowBuilder.build();
-    }
-    @Bean
-    public Step step3() {
-        return stepBuilderFactory.get("step3")
                 .tasklet((stepContribution, chunkContext) -> {
-                    System.out.println("step3 was executed");
+                    System.out.println("step2 was executed");
                     return RepeatStatus.FINISHED;
                 })
                 .build();
     }
 
-    @Bean
-    public Step step4() {
-        return stepBuilderFactory.get("step4")
-                .tasklet((stepContribution, chunkContext) -> {
-                    System.out.println("step3 was executed");
-                    return RepeatStatus.FINISHED;
-                })
-                .build();
-    }
-
-    @Bean
-    public Step step5() {
-        return stepBuilderFactory.get("step3")
-                .tasklet((stepContribution, chunkContext) -> {
-                    System.out.println("step5 was executed");
-                    return RepeatStatus.FINISHED;
-                })
-                .build();
-    }
+//    @Bean
+//    public Flow flow() {
+//        // step과 비슷한 level을 flow라고 봐도 무방할 것 같다.
+//        FlowBuilder<Flow> flowBuilder = new FlowBuilder<>("flow");
+//        // flow는 end를 구성해야한다.
+//        flowBuilder.start(step3())
+//                .next(step4())
+//                .end();
+//
+//        return flowBuilder.build();
+//    }
+//    @Bean
+//    public Step step3() {
+//        return stepBuilderFactory.get("step3")
+//                .tasklet((stepContribution, chunkContext) -> {
+//                    System.out.println("step3 was executed");
+//                    return RepeatStatus.FINISHED;
+//                })
+//                .build();
+//    }
+//
+//    @Bean
+//    public Step step4() {
+//        return stepBuilderFactory.get("step4")
+//                .tasklet((stepContribution, chunkContext) -> {
+//                    System.out.println("step3 was executed");
+//                    return RepeatStatus.FINISHED;
+//                })
+//                .build();
+//    }
+//
+//    @Bean
+//    public Step step5() {
+//        return stepBuilderFactory.get("step3")
+//                .tasklet((stepContribution, chunkContext) -> {
+//                    System.out.println("step5 was executed");
+//                    return RepeatStatus.FINISHED;
+//                })
+//                .build();
+//    }
 }
