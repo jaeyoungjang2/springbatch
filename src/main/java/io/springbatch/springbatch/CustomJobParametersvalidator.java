@@ -6,6 +6,7 @@ import org.springframework.batch.core.JobParametersValidator;
 
 public class CustomJobParametersvalidator implements JobParametersValidator {
 
+    
     @Override
     public void validate(JobParameters jobParameters) throws JobParametersInvalidException {
         // jobparameters 에는 job을 수행할 때 job에 전달한 key와 value 값들이 저장되어 있음.
