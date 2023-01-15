@@ -11,6 +11,7 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.job.DefaultJobParametersValidator;
 import org.springframework.batch.core.job.builder.FlowBuilder;
 import org.springframework.batch.core.job.flow.Flow;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
@@ -32,7 +33,7 @@ public class ExecutionContextConfiguration {
                 .next(step2())
 //                .validator(new DefaultJobParametersValidator(new String[]{"name","date"}, new String[]{"count"}))
 //                .preventRestart()
-                .incrementer(new CustomJobParametersIncrementer())
+                .incrementer(new RunIdIncrementer())
 //                .listener(jobRepositoryListener)
                 .build();
     }
