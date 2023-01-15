@@ -23,16 +23,17 @@ public class ExecutionContextConfiguration {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
 
-    private final JobExecutionListener jobRepositoryListener;
+//    private final JobExecutionListener jobRepositoryListener;
 
     @Bean
     public Job batchJob1() {
         return jobBuilderFactory.get("batchJob1")
                 .start(step1())
                 .next(step2())
-                .validator(new DefaultJobParametersValidator(new String[]{"name","date"}, new String[]{"count"}))
-                .preventRestart()
-                .listener(jobRepositoryListener)
+//                .validator(new DefaultJobParametersValidator(new String[]{"name","date"}, new String[]{"count"}))
+//                .preventRestart()
+                .incrementer(new CustomJobParametersIncrementer())
+//                .listener(jobRepositoryListener)
                 .build();
     }
 //    @Bean

@@ -35,11 +35,11 @@ spring:
       initialize-schema: always
 #      기본은 BATCH_ , -> prefix를 바꾸게 되면 아래 이름으로 query가 생성이 됨.
 #      query가 생성이 되는 것이지, table 이름도 변경이 되서 생성이 되는 것은 아니기 때문에 TABLE 이름도 변경해서 생성해 줘야한다.
-      table-prefix: SYSTEM_
-    job:
+#      table-prefix: SYSTEM_
+#    job:
 #    자동 실행 방지 enabled = false
 #      enabled: false
 #    job을 선별해서 실행하고자 할 때 names 설정 추가
 #    NONE은 임의의 문자를 의미한다. {job.name:NONE} 실행시점에 argument로 받겠다는 의미임
 #      names: batchJob2
-      names: ${job.name:NONE}
+#      names: ${job.name:NONE}
