@@ -31,6 +31,7 @@ public class ExecutionContextConfiguration {
                 .start(step1())
                 .next(step2())
                 .validator(new DefaultJobParametersValidator(new String[]{"name","date"}, new String[]{"count"}))
+                .preventRestart()
                 .listener(jobRepositoryListener)
                 .build();
     }
