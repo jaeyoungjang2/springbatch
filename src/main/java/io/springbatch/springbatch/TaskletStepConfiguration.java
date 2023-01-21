@@ -38,6 +38,13 @@ public class TaskletStepConfiguration {
                 })
                 .build();
     }
+
+    @Bean
+    public Step step2() {
+        return stepBuilderFactory.get("step2")
+                .tasklet(new CustomTasklet())
+                .build();
+    }
     @Bean
     public Step chunkStep() {
         return stepBuilderFactory.get("chunkStep")
