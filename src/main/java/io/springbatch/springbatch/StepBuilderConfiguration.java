@@ -20,20 +20,20 @@ public class StepBuilderConfiguration {
     private final StepBuilderFactory stepBuilderFactory;
 
     @Bean
-    public Job batchJob() {
-        return this.jobBuilderFactory.get("batchJob")
+    public Job stepBuilderBatchJob() {
+        return this.jobBuilderFactory.get("StepbuilderBatchJob")
                 .incrementer(new RunIdIncrementer())
-                .start(step1())
-                .next(step2())
-                .next(step4())
-                .next(step5())
+                .start(stepBuilderStep1())
+                .next(stepBuilderStep2())
+                .next(stepBuilderStep4())
+                .next(stepBuilderStep5())
 //                .next(step3())
                 .build();
     }
 
     @Bean
-    public Step step1() {
-        return stepBuilderFactory.get("step1")
+    public Step stepBuilderStep1() {
+        return stepBuilderFactory.get("Stepbuilder step1")
                 .tasklet((contribution, chunkContext) -> {
                     System.out.println("step1 has executed");
                     return RepeatStatus.FINISHED;
@@ -41,7 +41,7 @@ public class StepBuilderConfiguration {
                 .build();
     }
     @Bean
-    public Step step2() {
+    public Step stepBuilderStep2() {
         return stepBuilderFactory.get("step2")
                 .<String, String>chunk(3)
                 .reader(() -> null)
@@ -50,9 +50,9 @@ public class StepBuilderConfiguration {
     }
 //    multithread 관련 작업, 나중에 알아볼 예정
      @Bean
-     public Step step3() {
+     public Step stepBuilderStep3() {
          return stepBuilderFactory.get("step3")
-                 .partitioner(step1())
+                 .partitioner(stepBuilderStep1())
                  .gridSize(2)
                  .build();
      }
@@ -60,14 +60,14 @@ public class StepBuilderConfiguration {
     // job이 step 안에 포함되어 있는 형상
     // step이 job을 실행시키는 구조임
     @Bean
-    public Step step4() {
+    public Step stepBuilderStep4() {
         return stepBuilderFactory.get("step4")
                 .job(job())
                 .build();
     }
 
     @Bean
-    public Step step5() {
+    public Step stepBuilderStep5() {
         return stepBuilderFactory.get("step5")
                 .flow(flow())
                 .build();
@@ -75,15 +75,15 @@ public class StepBuilderConfiguration {
     @Bean
     public Job job() {
         return this.jobBuilderFactory.get("job")
-                .start(step1())
-                .next(step2())
+                .start(stepBuilderStep1())
+                .next(stepBuilderStep2())
 //                .next(step3())
                 .build();
     }
     @Bean
     public Flow flow() {
         FlowBuilder<Flow> flowBuilder = new FlowBuilder<>("flow");
-        flowBuilder.start(step2()).end();
+        flowBuilder.start(stepBuilderStep2()).end();
         return flowBuilder.build();
     }
 }

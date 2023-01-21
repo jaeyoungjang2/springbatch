@@ -40,7 +40,7 @@ public class TaskletStepConfiguration {
     }
 
     @Bean
-    public Step step2() {
+    public Step taskletStep2() {
         return stepBuilderFactory.get("step2")
                 .tasklet(new CustomTasklet())
                 .build();
