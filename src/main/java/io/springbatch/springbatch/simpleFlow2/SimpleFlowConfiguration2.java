@@ -43,6 +43,7 @@ public class SimpleFlowConfiguration2 {
                     return RepeatStatus.FINISHED;
                 }).build();
     }
+    
     @Bean
     public Step simpleFlow2Step3() {
         return stepBuilderFactory.get("simpleFlow2Step1")
