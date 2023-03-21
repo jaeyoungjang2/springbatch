@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringBatchApplication {
 
     public static void main(String[] args) {
+        int n = 4000;
+
         SpringApplication.run(SpringBatchApplication.class, args);
     }
 
